@@ -14,7 +14,7 @@ const Private = () => (
   <Screen key="Private" data-testid="PrivateWrapper">
     <Container verticalPadding>
       <Header>
-        <Heading>Oh hai!</Heading>
+        <Heading>Oh hai from aishu!</Heading>
         <Paragraph>
           You can get this boilerplate{' '}
           <Link href="https://github.com/gilbarbara/react-redux-saga-boilerplate/" target="_blank">
