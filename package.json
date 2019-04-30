@@ -2,6 +2,7 @@
   "name": "mean",
   "version": "2.0.2",
   "license": "MIT",
+  "description": "OwnDrive",
   "scripts": {
     "serve": "node server",
     "start": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"nodemon server\" \"node tools/build -w\"",
@@ -227,5 +228,21 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+  ],
+  "husky": {
+    "hooks": {
+      "post-merge": "node tools update",
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "bundlesize": [
+    {
+      "path": "./build/scripts/bundle.*.js",
+      "maxSize": "180 kB"
+    },
+    {
+      "path": "./build/scripts/modernizr.*.js",
+      "maxSize": "25 kB"
+    }
   ]
 }
