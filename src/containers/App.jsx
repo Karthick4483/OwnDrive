@@ -83,13 +83,13 @@ export class App extends React.Component {
               <Switch>
                 <RoutePublic
                   isAuthenticated={user.isAuthenticated}
-                  path="/"
+                  path="/app"
                   exact
                   component={Home}
                 />
                 <RoutePrivate
                   isAuthenticated={user.isAuthenticated}
-                  path="/private"
+                  path="/app/private"
                   component={Private}
                 />
                 <Route component={NotFound} />

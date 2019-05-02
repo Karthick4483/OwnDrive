@@ -13,7 +13,7 @@ exports[`Private should render properly 1`] = `
       <Heading
         as="h1"
       >
-        Oh hai!
+        Welcome!
       </Heading>
       <Paragraph
         as="p"

@@ -11,7 +11,6 @@ const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const OfflinePlugin = require('offline-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -63,6 +62,7 @@ module.exports = webpackEnv => {
     inject: true,
     template: paths.appHtml,
     title: NPMPackage.title,
+    filename: 'app.html',
   };
 
   if (isProd) {
@@ -345,29 +345,7 @@ module.exports = webpackEnv => {
           filename: 'css/bundle.[git-hash].css',
           chunkFilename: 'css/bundle.[git-hash].chunk.css',
         }),
-      isProd &&
-        new OfflinePlugin({
-          autoUpdate: true,
-          safeToUseOptionalCaches: true,
-          ServiceWorker: {
-            events: true,
-          },
-          AppCache: {
-            events: true,
-          },
-          caches: {
-            main: ['**/*.js', 'index.html'],
-            optional: [':rest:'],
-          },
-          cacheMaps: [
-            {
-              match: function match() {
-                return new URL('/', location);
-              },
-              requestTypes: ['navigate'],
-            },
-          ],
-        }),
+
       isDev &&
         new CircularDependencyPlugin({
           exclude: /node_modules/,

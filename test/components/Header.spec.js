@@ -23,12 +23,12 @@ describe('Header', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should handle clicks', () => {
-    wrapper.find('Logout').simulate('click');
+  // it('should handle clicks', () => {
+  //   wrapper.find('Logout').simulate('click');
 
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'USER_LOGOUT',
-      payload: {},
-    });
-  });
+  //   expect(mockDispatch).toHaveBeenCalledWith({
+  //     type: 'USER_LOGOUT',
+  //     payload: {},
+  //   });
+  // });
 });

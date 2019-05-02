@@ -16,7 +16,7 @@ RoutePublic.propTypes = {
 };
 
 RoutePublic.defaultProps = {
-  to: '/private',
+  to: '/app/private',
 };
 
 export default RoutePublic;
