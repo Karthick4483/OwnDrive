@@ -11,6 +11,7 @@ module.exports = router;
 
 // router.post('/register', asyncHandler(register), login);
 router.post('/login', loginUser);
+router.get('/me', passport.authenticate('jwt', { session: false }), protected);
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -20,8 +21,6 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-router.get('/me', passport.authenticate('jwt', { session: false }), protected);
-
 async function register(req, res, next) {
   let user = await userCtrl.insert(req.body);
   user = user.toObject();
@@ -30,7 +29,7 @@ async function register(req, res, next) {
   next();
 }
 
-function protected(eq, res) {
+function protected(req, res) {
   const { user } = req;
   res.status(200).send({ user });
 }
@@ -57,7 +56,7 @@ function loginUser(req, res) {
       const token = jwt.sign(JSON.stringify(payload), 'keys.secret');
 
       /** assign our jwt to the cookie */
-      res.cookie('jwt', token, { httpOnly: true, secure: true });
+      res.cookie('jwt', token, { httpOnly: false });
       res.status(200).send({ token });
     });
   })(req, res);

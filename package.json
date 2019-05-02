@@ -29,7 +29,7 @@
     "deploy": "node tools deploy",
     "publish": "node tools publish",
     "bundlesize": "bundlesize",
-    "precommit": "node tools upstream && lint-staged && flow"
+    "precommit": "node tools upstream && lint-staged"
   },
   "private": true,
   "dependencies": {
