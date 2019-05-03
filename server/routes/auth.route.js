@@ -1,63 +1,45 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const passport = require('passport');
+const User = require('../models/user.model');
 const userCtrl = require('../controllers/user.controller');
 const authCtrl = require('../controllers/auth.controller');
 const config = require('../config/config');
-const jwt = require('jsonwebtoken');
-
 const router = express.Router();
-module.exports = router;
+const resCodes = require('../config/rescodes');
 
-// router.post('/register', asyncHandler(register), login);
-router.post('/login', loginUser);
-router.get('/me', passport.authenticate('jwt', { session: false }), protected);
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
+router.post('/register', asyncHandler(register));
+router.post('/login', login);
+router.get('/logout', logout);
 
 async function register(req, res, next) {
   let user = await userCtrl.insert(req.body);
   user = user.toObject();
   delete user.hashedPassword;
   req.user = user;
-  next();
+  req.session.user = { id: user.email };
+  res.json(200, user);
 }
 
-function protected(req, res) {
-  const { user } = req;
-  res.status(200).send({ user });
+function logout(req, res) {
+  req.session.destroy();
+  res.send(null);
 }
 
-function loginUser(req, res) {
-  passport.authenticate('local', { session: false }, (error, user) => {
-    if (error || !user) {
-      res.status(400).json({ error });
+function login(req, res) {
+  const email = req.body.email,
+    password = req.body.password;
+
+  User.findOne({ email: email }).then(function(user) {
+    if (!user) {
+      res.json(401, resCodes['401']);
+    } else if (!user.validPassword(password)) {
+      res.json(401, resCodes['401']);
+    } else {
+      req.session.user = { id: user.email };
+      res.redirect('/app/dashboard');
+      // res.json(200, user);
     }
-
-    /** This is what ends up in our JWT */
-    const payload = {
-      username: user.username,
-      expires: Date.now() + parseInt(process.env.JWT_EXPIRATION_MS),
-    };
-
-    /** assigns payload to req.user */
-    req.login(payload, { session: false }, error => {
-      if (error) {
-        res.status(400).send({ error });
-      }
-
-      /** generate a signed json web token and return it in the response */
-      const token = jwt.sign(JSON.stringify(payload), 'keys.secret');
-
-      /** assign our jwt to the cookie */
-      res.cookie('jwt', token, { httpOnly: false });
-      res.status(200).send({ token });
-    });
-  })(req, res);
+  });
 }
+
+module.exports = router;

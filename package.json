@@ -5,7 +5,6 @@
   "description": "OwnDrive",
   "title": "test",
   "scripts": {
-    "keystone": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"nodemon keystone\"",
     "serve": "node server",
     "start": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"nodemon server\"",
     "build": "node tools/build",
@@ -38,6 +37,7 @@
     "classlist-polyfill": "^1.2.0",
     "classnames": "^2.2.6",
     "compression": "^1.7.2",
+    "connect-mongo": "^2.0.3",
     "cookie-parser": "^1.4.3",
     "core-js": "2.5.7",
     "cors": "^2.8.4",
