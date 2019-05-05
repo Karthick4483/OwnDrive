@@ -69,7 +69,6 @@ export default class Header extends React.PureComponent {
 
   handleClickLogout = () => {
     const { dispatch } = this.props;
-
     dispatch(logOut());
   };
 

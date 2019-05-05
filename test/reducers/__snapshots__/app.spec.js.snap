@@ -3,6 +3,7 @@
 exports[`App should handle HIDE_ALERT 1`] = `
 Object {
   "alerts": Array [],
+  "isAuthenticated": true,
 }
 `;
 
@@ -18,11 +19,13 @@ Object {
       "variant": "dark",
     },
   ],
+  "isAuthenticated": true,
 }
 `;
 
 exports[`App should return the initial state 1`] = `
 Object {
   "alerts": Array [],
+  "isAuthenticated": true,
 }
 `;

@@ -15,17 +15,11 @@ Object {
   },
   "app": Object {
     "alerts": Array [],
-  },
-  "github": Object {
-    "repos": Object {
-      "data": Object {},
-      "message": "",
-      "query": "",
-      "status": "idle",
-    },
+    "isAuthenticated": true,
   },
   "user": Object {
-    "isAuthenticated": false,
+    "data": Object {},
+    "isAuthenticated": true,
     "status": "idle",
   },
 }

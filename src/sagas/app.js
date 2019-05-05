@@ -1,9 +1,4 @@
-/**
- * @module Sagas/App
- * @desc App
- */
 import { all, put, select, takeLatest } from 'redux-saga/effects';
-
 import { ActionTypes } from 'constants/index';
 
 /**

@@ -3,7 +3,8 @@
  * @desc User
  */
 
-import { all, delay, put, takeLatest } from 'redux-saga/effects';
+import { all, delay, call, put, takeLatest } from 'redux-saga/effects';
+import { request } from 'modules/client';
 
 import { ActionTypes } from 'constants/index';
 
@@ -31,8 +32,8 @@ export function* login() {
  */
 export function* logout() {
   try {
-    yield delay(200);
-
+    yield call(request, '/api/auth/logout');
+    window.location.reload();
     yield put({
       type: ActionTypes.USER_LOGOUT_SUCCESS,
     });
@@ -45,12 +46,28 @@ export function* logout() {
   }
 }
 
+export function* initUser() {
+  try {
+    const response = yield call(request, '/api/user/me');
+    yield put({
+      type: ActionTypes.INIT_USER_SUCCESS,
+      payload: { data: response },
+    });
+  } catch (err) {
+    /* istanbul ignore next */
+    yield put({
+      type: ActionTypes.INIT_USER_FAILURE,
+      payload: err,
+    });
+  }
+}
+
 /**
  * User Sagas
  */
 export default function* root() {
   yield all([
-    takeLatest(ActionTypes.USER_LOGIN, login),
+    takeLatest(ActionTypes.INIT_USER, initUser),
     takeLatest(ActionTypes.USER_LOGOUT, logout),
   ]);
 }

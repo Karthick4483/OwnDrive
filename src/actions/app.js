@@ -6,12 +6,11 @@
 
 import uuid from 'uuid/v4';
 import { createActions } from 'redux-actions';
-
 import { ActionTypes } from 'constants/index';
 
 export { goBack, go, push, replace } from 'modules/history';
-
-export const { hideAlert, showAlert, switchMenu } = createActions({
+export const { hideAlert, showAlert, switchMenu, initUser } = createActions({
+  [ActionTypes.INIT_USER]: () => ({}),
   [ActionTypes.SWITCH_MENU]: (query: string) => ({ query }),
   [ActionTypes.HIDE_ALERT]: (id: string) => ({ id }),
   [ActionTypes.SHOW_ALERT]: (message: string, options: Object) => {

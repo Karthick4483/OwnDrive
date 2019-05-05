@@ -11,6 +11,9 @@ import keyMirror from 'fbjs/lib/keyMirror';
  */
 export const ActionTypes = keyMirror({
   SWITCH_MENU: undefined,
+  INIT_USER: undefined,
+  INIT_USER_SUCCESS: undefined,
+  INIT_USER_FAILURE: undefined,
   EXCEPTION: undefined,
   USER_LOGIN: undefined,
   USER_LOGIN_SUCCESS: undefined,

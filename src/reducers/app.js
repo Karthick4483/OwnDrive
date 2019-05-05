@@ -1,11 +1,11 @@
 import { handleActions } from 'redux-actions';
 import immutable from 'immutability-helper';
 import { REHYDRATE } from 'redux-persist/lib/constants';
-
 import { ActionTypes } from 'constants/index';
 
 export const appState = {
   alerts: [],
+  isAuthenticated: true,
 };
 
 export default {

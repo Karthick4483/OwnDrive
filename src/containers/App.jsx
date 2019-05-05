@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled, { css, ThemeProvider } from 'styled-components';
 import treeChanges from 'tree-changes';
+import SystemAlerts from 'containers/SystemAlerts';
 
 import history from 'modules/history';
 import theme, { headerHeight } from 'modules/theme';
 import { utils } from 'styled-minimal';
 
 import config from 'config';
-import { showAlert } from 'actions/index';
+import { showAlert, initUser } from 'actions/index';
 
 import Home from 'routes/Home';
 import Private from 'routes/Private';
 import NotFound from 'routes/NotFound';
 
 import Header from 'components/Header';
-import SystemAlerts from 'containers/SystemAlerts';
 
 import Footer from 'components/Footer';
 import GlobalStyles from 'components/GlobalStyles';
@@ -53,6 +53,11 @@ export class App extends React.Component {
     user: PropTypes.object.isRequired,
   };
 
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(initUser());
+  }
+
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
     const { changedTo } = treeChanges(this.props, nextProps);
@@ -65,7 +70,6 @@ export class App extends React.Component {
 
   render() {
     const { dispatch, user } = this.props;
-
     return (
       <Router history={history}>
         <ThemeProvider theme={theme}>
@@ -83,21 +87,21 @@ export class App extends React.Component {
               <Switch>
                 <RoutePublic
                   isAuthenticated={user.isAuthenticated}
-                  path="/app"
+                  path="/"
                   exact
                   component={Home}
                 />
                 <RoutePrivate
                   isAuthenticated={user.isAuthenticated}
-                  path="/app/private"
+                  path="/app/dashboard"
                   component={Private}
                 />
                 <Route component={NotFound} />
               </Switch>
             </Main>
             <Footer />
-            <SystemAlerts />
             <GlobalStyles />
+            <SystemAlerts />
           </AppWrapper>
         </ThemeProvider>
       </Router>

@@ -2,13 +2,15 @@
 
 exports[`User should handle USER_LOGIN 1`] = `
 Object {
-  "isAuthenticated": false,
+  "data": Object {},
+  "isAuthenticated": true,
   "status": "running",
 }
 `;
 
 exports[`User should handle USER_LOGIN_SUCCESS 1`] = `
 Object {
+  "data": Object {},
   "isAuthenticated": true,
   "status": "ready",
 }
@@ -16,13 +18,15 @@ Object {
 
 exports[`User should handle USER_LOGOUT 1`] = `
 Object {
-  "isAuthenticated": false,
+  "data": Object {},
+  "isAuthenticated": true,
   "status": "running",
 }
 `;
 
 exports[`User should handle USER_LOGOUT_SUCCESS 1`] = `
 Object {
+  "data": Object {},
   "isAuthenticated": false,
   "status": "idle",
 }
@@ -30,7 +34,8 @@ Object {
 
 exports[`User should return the initial state 1`] = `
 Object {
-  "isAuthenticated": false,
+  "data": Object {},
+  "isAuthenticated": true,
   "status": "idle",
 }
 `;
