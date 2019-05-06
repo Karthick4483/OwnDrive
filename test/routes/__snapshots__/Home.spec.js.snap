@@ -144,7 +144,7 @@ exports[`Home should render properly 1`] = `
   line-height: 1.4;
   margin-bottom: 16px;
   margin-top: 0;
-  text-align: center;
+  text-align: left;
 }
 
 @media (min-width:768px) {
