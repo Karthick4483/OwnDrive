@@ -22,7 +22,7 @@ export class Private extends React.PureComponent {
       <Screen key="Private" data-testid="PrivateWrapper">
         <Container verticalPadding>
           <Header>
-            <Heading>Welcome! {user.data && user.data.id}</Heading>
+            <Heading>Welcome sdsd! {user.data && user.data.id}</Heading>
           </Header>
         </Container>
       </Screen>

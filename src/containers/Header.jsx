@@ -85,7 +85,7 @@ export default class Header extends React.PureComponent {
         <StyledContainer>
           <HeaderLogo />
           <Logout onClick={this.handleClickLogout}>
-            <span>signssdout</span>
+            <span>logout</span>
             <Icon name="sign-out" color="#333" width={16} />
           </Logout>
         </StyledContainer>
