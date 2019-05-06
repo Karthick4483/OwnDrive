@@ -36,7 +36,7 @@ const Heading = styled.h1`
   line-height: 1.4;
   margin-bottom: ${spacer(3)};
   margin-top: 0;
-  text-align: center;
+  text-align: left;
 
   /* stylelint-disable */
   ${utils.responsive({
