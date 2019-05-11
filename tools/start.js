@@ -104,6 +104,7 @@ choosePort(HOST, DEFAULT_PORT)
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
+      console.log(sig);
       process.on(sig, function() {
         devServer.close();
         process.exit();

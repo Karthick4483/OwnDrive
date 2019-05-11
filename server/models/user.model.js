@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
@@ -32,6 +33,7 @@ const UserSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    isVerified: { type: Boolean, default: false },
     roles: [
       {
         type: String,

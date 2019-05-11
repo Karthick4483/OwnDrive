@@ -9,12 +9,14 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
+const session = require('express-session');
 const swaggerDocument = require('./swagger.json');
 const routes = require('../routes/index.route');
 const views = require('../routes/view.route');
 const config = require('./config');
-const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const expressValidator = require('express-validator');
+
 const app = express();
 const distDir = '../../build/';
 
@@ -26,6 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
+app.use(expressValidator());
+app.engine('html', require('ejs').renderFile);
+
 // app.use(methodOverride());
 // app.use(helmet());
 // app.use(cors());
@@ -53,13 +58,15 @@ app.use('/', (req, res) => {
   }
 });
 
+app.use('/register', () => res.redirect('/app/register'));
+
 app.use((req, res, next) => {
   const err = new httpError(404);
   return next(err);
 });
 
 // error handler, send stacktrace only during development
-app.use((err, req, res, next) => {
+const server = app.use((err, req, res, next) => {
   // customize Joi validation errors
   if (err.isJoi) {
     err.message = err.details.map(e => e.message).join('; ');
