@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 const User = require('../models/user.model');
+const SignupToken = require('../models/signup-token.model');
 
 module.exports = {
   register,
