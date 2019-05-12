@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   <%= msg %>
-  <div id="demo"></div>
-  <script>
-    document.getElementById('demo').innerHTML = `<form action="/api/auth/login" method="post">
-          First name: <input type="text" name="email" /><br />
-          Last name: <input type="text" type="password" name="password" /><br />
-          <input type="submit" value="Submit" />
-        </form>`;
-  </script>
+  <form action="/api/auth/login" method="post">
+    Email: <input type="text" name="email" /><br />
+    Password: <input type="password" name="password" /><br />
+    <input type="submit" value="Submit" />
+  </form>
+  <a href="/app/register">Register</a>
+  <a href="/app/resetPassword">Forgot Password</a>
 </html>

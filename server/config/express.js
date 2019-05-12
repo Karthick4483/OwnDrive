@@ -16,6 +16,7 @@ const views = require('../routes/view.route');
 const config = require('./config');
 const MongoStore = require('connect-mongo')(session);
 const expressValidator = require('express-validator');
+const flash = require('connect-flash');
 
 const app = express();
 const distDir = '../../build/';
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(expressValidator());
+app.use(flash());
 app.engine('html', require('ejs').renderFile);
 
 // app.use(methodOverride());

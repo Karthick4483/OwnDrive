@@ -15,4 +15,4 @@ const userSchema = Joi.object({
   isVerified: Joi.boolean(),
 });
 
-module.exports = {};
+module.exports = { userSchema };

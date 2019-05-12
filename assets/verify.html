@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-  <div id="demo"></div>
-  <script>     
-    document.getElementById('demo').innerHTML = `<form action="/api/auth/resend" method="post">        
-          Email: <input type="text" name="email" value="karthick4483@gmail.com"/><br />
-          <input type="submit" value="Submit" />
-        </form>`;
-  </script>
-
-<a href='/api/auth/logout'>Logout</a>
-
+  <form action="/api/auth/resend" method="post">
+    Email: <input type="text" name="email" value="k" /><br />
+    <input type="submit" value="Submit" />
+  </form>
+  <a href="/api/auth/logout">Logout</a>
 </html>

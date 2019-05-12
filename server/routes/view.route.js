@@ -45,11 +45,11 @@ const checkVerify = (req, res, next) => {
 };
 
 router.use('/login', checkLogin, (req, res) => {
-  res.render(path.join(__dirname, `${distDir}/login.html`), { msg: 'login' });
+  res.render(path.join(__dirname, `${distDir}/login.html`), { msg: req.flash('message') });
 });
 
 router.use('/register', checkRegister, (req, res) => {
-  res.sendFile(path.join(__dirname, `${distDir}/register.html`));
+  res.render(path.join(__dirname, `${distDir}/register.html`), { msg: req.flash('message') });
 });
 
 router.use('/dashboard', checkDashboard, (req, res) => {
@@ -60,15 +60,21 @@ router.use('/verify', checkVerify, (req, res) => {
   res.sendFile(path.join(__dirname, `${distDir}/verify.html`));
 });
 
-router.use('/verifySuccess', (req, res) => {
-  res.render(path.join(__dirname, `${distDir}/login.html`), {
-    msg: 'Email verified, please login.',
+router.use('/resetPassword', (req, res) => {
+  res.render(path.join(__dirname, `${distDir}/reset_password.html`), {
+    msg: '',
   });
 });
 
-router.use('/verifyError', (req, res) => {
-  res.render(path.join(__dirname, `${distDir}/login.html`), {
-    msg: 'Already verified or token expired, please login.',
+router.use('/changePassword/:token', (req, res) => {
+  res.render(path.join(__dirname, `${distDir}/change_password.html`), {
+    token: req.params.token,
+  });
+});
+
+router.use('/notify', (req, res) => {
+  res.render(path.join(__dirname, `${distDir}/notify.html`), {
+    msg: req.flash('message'),
   });
 });
 
