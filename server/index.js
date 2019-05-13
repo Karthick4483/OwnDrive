@@ -11,7 +11,6 @@ if (!module.parent) {
   });
 
   ['SIGINT', 'SIGTERM'].forEach(sig => {
-    console.log(sig);
     process.on(sig, () => {
       server.close();
       process.exit();

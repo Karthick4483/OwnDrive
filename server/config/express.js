@@ -24,6 +24,7 @@ const distDir = '../../build/';
 if (config.env === 'development') {
   app.use(logger('dev'));
 }
+app.set('strict routing', true);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,17 +49,20 @@ app.use(
   }),
 );
 
-app.use(express.static(path.join(__dirname, distDir)));
+// app.use(express.static(path.join(__dirname, `${distDir}/`)), { index: false });
+app.use('/media/', express.static(path.join(__dirname, `${distDir}/media`)));
+app.use('/scripts/', express.static(path.join(__dirname, `${distDir}/scripts`)));
+app.use('/build/', express.static(path.join(__dirname, distDir)));
 app.use('/api/', routes);
-app.use('/app/', views);
+app.use('/', views);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/', (req, res) => {
-  if (req.session.user && req.cookies.user_sid) {
-    res.redirect('/app/dashboard');
-  } else {
-    res.redirect('/app/login');
-  }
-});
+// app.use('/', (req, res) => {
+//   if (req.session.user && req.cookies.user_sid) {
+//     res.redirect('/app/dashboard');
+//   } else {
+//     res.redirect('/app/login');
+//   }
+// });
 
 app.use('/register', () => res.redirect('/app/register'));
 

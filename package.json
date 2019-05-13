@@ -7,6 +7,7 @@
   "scripts": {
     "serve": "nodemon server",
     "start": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"nodemon --signal SIGTERM --delay 2000ms server\"",
+    "build:watch": "nodemon tools/build",
     "build": "node tools/build",
     "start:app": "node tools/start",
     "build:serve": "npm run build && npm run serve",

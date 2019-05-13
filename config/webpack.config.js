@@ -98,7 +98,7 @@ module.exports = webpackEnv => {
       loader: 'postcss',
       options: {
         // Necessary for external CSS imports to work
-        // https://github.com/facebook/create-react-app/issues/2677
+        // https://github.com/facebook/create-react-issues/2677
         ident: 'postcss',
         plugins: [
           require('postcss-flexbugs-fixes'),
@@ -280,19 +280,19 @@ module.exports = webpackEnv => {
               // to apply any minfication steps that turns valid ecma 5 code
               // into invalid ecma 5 code. This is why the 'compress' and 'output'
               // sections only apply transformations that are ecma 5 safe
-              // https://github.com/facebook/create-react-app/pull/4234
+              // https://github.com/facebook/create-react-pull/4234
               ecma: 8,
             },
             compress: {
               ecma: 5,
               warnings: false,
               // Disabled because of an issue with Uglify breaking seemingly valid code:
-              // https://github.com/facebook/create-react-app/issues/2376
+              // https://github.com/facebook/create-react-issues/2376
               // Pending further investigation:
               // https://github.com/mishoo/UglifyJS2/issues/2011
               comparisons: false,
               // Disabled because of an issue with Terser breaking valid code:
-              // https://github.com/facebook/create-react-app/issues/5250
+              // https://github.com/facebook/create-react-issues/5250
               // Pending futher investigation:
               // https://github.com/terser-js/terser/issues/120
               inline: 2,
@@ -305,7 +305,7 @@ module.exports = webpackEnv => {
               ecma: 5,
               comments: false,
               // Turned on because emoji and regex is not minified properly using default
-              // https://github.com/facebook/create-react-app/issues/2488
+              // https://github.com/facebook/create-react-issues/2488
               ascii_only: true,
             },
           },
@@ -358,12 +358,12 @@ module.exports = webpackEnv => {
       isDev && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use
       // a plugin that prints an error when you attempt to do this.
-      // See https://github.com/facebookincubator/create-react-app/issues/240
+      // See https://github.com/facebookincubator/create-react-issues/240
       isDev && new CaseSensitivePathsPlugin(),
       // If you require a missing module and then `npm install` it, you still have
       // to restart the development server for Webpack to discover it. This plugin
       // makes the discovery automatic so you don't have to restart.
-      // See https://github.com/facebookincubator/create-react-app/issues/186
+      // See https://github.com/facebookincubator/create-react-issues/186
       isDev && new WatchMissingNodeModulesPlugin(paths.nodeModules),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <style>
+    body {
+      margin: 0;
+    }
+    .header {
+      height: 50px;
+      background: #333;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+    }
+    .footer {
+      height: 30px;
+      background: #333;
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .content {
+      position: absolute;
+      top: 50px;
+      bottom: 20px;
+      right: 0;
+      left: 0;
+    }
+    .right {
+      width: 600px;
+      position: absolute;
+      background: #ddd;
+      bottom: 0;
+      top: 0;
+    }
+    .left {
+      position: absolute;
+      left: 600px;
+      right: 0;
+      padding: 20px;
+    }
+    form input {
+      padding: 10px;
+      margin: 5px;
+      width: 300px;
+      clear: both;
+    }
+    form label {
+      width: 100px;
+      display: block;
+      float: left;
+    }
+    form input[type='submit'] {
+      width: 300px;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #00a5dd;
+      border: 0px;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #ffffff;
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-top: 30px;
+    }
+    a {
+      float: left;
+      margin: 10px;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+  <script src="/build/ejs.min.js"></script>
+  <body>
+    <div class="header">Header</div>
+    <div class="content">
+      <div class="right"></div>
+      <div class="left">
+        <div id="form"></div>
+        <a href="/login">Login</a>
+      </div>
+    </div>
+    <div class="footer">Footer</div>
+  </body>
+  <script>
+    const data = JSON.parse('<%- data %>');
+    document.getElementById('form').innerHTML = ejs.compile(`<%- template %>`)({
+      msg: data.msg,
+      token: data.token,
+    });
+  </script>
+</html>

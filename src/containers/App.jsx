@@ -93,7 +93,7 @@ export class App extends React.Component {
                 />
                 <RoutePrivate
                   isAuthenticated={user.isAuthenticated}
-                  path="/app/dashboard"
+                  path="/dashboard"
                   component={Private}
                 />
                 <Route component={NotFound} />

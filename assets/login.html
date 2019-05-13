@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-  <%= msg %>
   <form action="/api/auth/login" method="post">
-    Email: <input type="text" name="email" /><br />
-    Password: <input type="password" name="password" /><br />
+    <label>Email:</label> <input type="text" name="email" /><br />
+    <label>Password:</label><input type="password" name="password" /><br />
     <input type="submit" value="Submit" />
+    <div class="error">
+      <%= msg %>
+    </div>
   </form>
-  <a href="/app/register">Register</a>
-  <a href="/app/resetPassword">Forgot Password</a>
+  <a href="/register">Register</a>
+  <a href="/resetPassword">Forgot Password</a>
 </html>

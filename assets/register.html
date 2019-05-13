@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+<form action="/api/auth/register" method="post">
+  <label>First name: </label><input type="text" name="firstName" value="" /><br />
+  <label>Last name: </label><input type="text" name="lastName" value="" /><br />
+  <label>Email: </label><input type="text" name="email" value="" /><br />
+  <label>Middle Name: </label><input type="text" name="middleName" value="" /><br />
+  <label>Password name: </label><input type="password" name="password" value="" /><br />
+  <label>Repeat Password:</label>
+  <input type="password" type="text" name="repeatPassword" value="" /><br />
+  <label>Mobile Number:</label> <input type="text" name="mobileNumber" value="" /><br />
+  <input type="submit" value="Submit" />
   <%= msg %>
-  <form action="/api/auth/register" method="post">
-    First name: <input type="text" name="firstName" value="" /><br />
-    Last name: <input type="text" name="lastName" value="" /><br />
-    Email: <input type="text" name="email" value="" /><br />
-    Middle Name: <input type="text" name="middleName" value="" /><br />
-    Password name: <input type="password" name="password" value="" /><br />
-    Repeat Password:
-    <input type="password" type="text" name="repeatPassword" value="" /><br />
-    Mobile Number: <input type="text" name="mobileNumber" value="" /><br />
-    <input type="submit" value="Submit" />
-  </form>
-  <a href="/app/login">Login</a>
-</html>
+</form>
