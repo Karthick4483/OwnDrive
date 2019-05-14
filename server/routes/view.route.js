@@ -96,7 +96,7 @@ router.use('/notify', (req, res) => {
   });
 });
 
-router.use('', checkDashboard, (req, res) => {
+router.use('/', checkDashboard, (req, res) => {
   res.sendFile(path.join(__dirname, `${distDir}/index.html`));
 });
 

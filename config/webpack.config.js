@@ -62,7 +62,7 @@ module.exports = webpackEnv => {
     inject: true,
     template: paths.appHtml,
     title: NPMPackage.title,
-    filename: 'app.html',
+    filename: 'index.html',
   };
 
   if (isProd) {

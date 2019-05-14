@@ -9,6 +9,7 @@ import { logOut } from 'actions';
 import { Container, utils } from 'styled-minimal';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
+import Dropzone from 'react-dropzone';
 
 const { responsive, spacer } = utils;
 
@@ -72,11 +73,37 @@ export default class Header extends React.PureComponent {
     dispatch(logOut());
   };
 
+  onUploadStart(files) {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/api/user/upload/image', {
+      method: 'POST',
+      body: formData,
+    });
+  }
+
   render() {
     return (
       <HeaderWrapper>
         <HeaderContainer>
           <Logo />
+          <Dropzone
+            onDrop={acceptedFiles => console.log(acceptedFiles)}
+            onDropAccepted={files => {
+              this.onUploadStart(files);
+            }}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
           <Logout onClick={this.handleClickLogout}>
             <span>logout</span>
             <Icon name="sign-out" width={16} />

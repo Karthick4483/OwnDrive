@@ -1,6 +1,8 @@
 const Joi = require('joi');
+const uploader = require('express-fileuploader');
+const fileSchema = require('./file.controller');
 const User = require('../models/user.model');
-const SignupToken = require('../models/signup-token.model');
+const File = require('../models/file.model');
 
 const userSchema = Joi.object({
   firstName: Joi.string().required(),
@@ -15,4 +17,40 @@ const userSchema = Joi.object({
   isVerified: Joi.boolean(),
 });
 
-module.exports = { userSchema };
+module.exports = { userSchema, uploadFile, getUser, getUserFiles };
+
+uploader.use(
+  new uploader.LocalStrategy({
+    uploadPath: '/uploads',
+  }),
+);
+
+function uploadFile(req, res, next) {
+  uploader.upload('local', req.files.file, (err, files) => {
+    if (err) {
+      return res.send(err);
+      // return next(err);
+    }
+    const fileMeta = files[0];
+    const userId = req.session.user.id;
+    const { type, name } = fileMeta;
+    const file = Joi.validate({ name, type, userId }, fileSchema).value;
+
+    new File(file).save((err, file) => {
+      if (err) {
+        return res.send(JSON.stringify(err));
+      }
+      res.send(JSON.stringify(file));
+    });
+  });
+}
+
+function getUser(req, res, next) {
+  res.json(200, req.session.user);
+}
+
+function getUserFiles(req, res, next) {
+  File.find({ _id: req.user.session.id }, (error, collection) => {
+    res.send(JSON.stringify(collection));
+  });
+}

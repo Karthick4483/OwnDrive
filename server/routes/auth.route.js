@@ -12,6 +12,6 @@ router.get('/logout', authCtrl.logout);
 router.post('/resend', authCtrl.resendToken);
 router.get('/confirmation/:token', authCtrl.confirmationToken);
 router.post('/resetpassword', authCtrl.resetPassword);
-router.post('/changepassword/', authCtrl.changePassword);
+router.post('/changepassword', authCtrl.changePassword);
 
 module.exports = router;

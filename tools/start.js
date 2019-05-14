@@ -47,7 +47,7 @@ const HOST = process.env.HOST || '0.0.0.0';
 // const proxySetting = require(paths.packageJson).proxy;
 
 const proxySetting = {
-  '/api': {
+  '/api/': {
     target: 'http://localhost:4040',
     secure: false,
     changeOrigin: true,

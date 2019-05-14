@@ -20,17 +20,7 @@ module.exports = {
   changePassword,
 };
 
-const smpt = {
-  host: 'smtp.gmail.com',
-  port: 587,
-  // secure: true, // use TLS
-  auth: {
-    user: 'noreplyowndrive@gmail.com',
-    pass: 'owndrivepp@4483',
-  },
-};
-
-const transporter = nodemailer.createTransport(smpt);
+const transporter = nodemailer.createTransport(config.smtp);
 const NOT_VERIFIED = {
   type: 'not-verified',
   msg: 'We were unable to find a valid token. Your token my have expired.',
@@ -80,10 +70,10 @@ function login(req, res) {
       req.flash('message', 'invalid password');
       res.redirect('/login');
     } else if (user && !user.isVerified) {
-      req.session.user = { id: user.email, isVerified: false };
+      req.session.user = { id: user._id, email: user.email, isVerified: false };
       res.redirect('/verify');
     } else if (user && user.isVerified) {
-      req.session.user = { id: user.email, isVerified: true };
+      req.session.user = { id: user._id, email: user.email, isVerified: true };
       res.redirect('/dashboard');
     }
   });
@@ -158,7 +148,7 @@ function confirmationToken(req, res, next) {
     }
     User.findOne({ _id: token._userId }, (err, user) => {
       SignupToken.remove({ token: req.params.token }, tokenError => {
-        req.session.user = { id: user.email, isVerified: false };
+        req.session.user = { email: user.email, id: user._id, isVerified: false };
 
         if (tokenError) {
           req.flash('message', 'Token expired or not found');
@@ -172,7 +162,7 @@ function confirmationToken(req, res, next) {
             if (err) {
               return res.status(500).send({ msg: err.message });
             }
-            req.session.user = { id: user.email, isVerified: true };
+            req.session.user = { email: user.email, id: user._id, isVerified: true };
             req.flash('message', 'User has been verfied already, login now');
             return res.redirect('/notify');
           });

@@ -13,7 +13,6 @@ const validateUser = (req, res, next) => {
   }
 };
 
-router.get('/health-check', (req, res) => res.send('OK'));
 router.use('/auth', authRoutes);
 router.use('/user', validateUser, userRoutes);
 

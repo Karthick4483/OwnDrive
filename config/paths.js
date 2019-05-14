@@ -22,7 +22,7 @@ module.exports = {
   appPath: resolvePath('.'),
   appAssets: resolvePath('assets'),
   appBuild: resolvePath('build'),
-  appHtml: resolvePath('assets/app.html'),
+  appHtml: resolvePath('assets/index.html'),
   appIndexJs: resolveModule(resolvePath, 'src/index'),
   appModernizr: resolvePath('src/vendor/modernizr-custom.js'),
   appModernizrrc: resolvePath('src/vendor/modernizrrc.json'),
