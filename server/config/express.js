@@ -56,7 +56,7 @@ app.use('/scripts/', express.static(path.join(__dirname, `${distDir}/scripts`)))
 app.use('/build/', express.static(path.join(__dirname, distDir)));
 app.use('/api/', routes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/register', () => res.redirect('/app/register'));
+// app.use('/register', () => res.redirect('/app/register'));
 app.use('/', views);
 
 app.use((req, res, next) => {
