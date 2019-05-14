@@ -53,7 +53,7 @@ Thumbs.db
 .publish
 coverage/
 build/
-
+uploads/
 dist/
 node_modules/
 reports/
