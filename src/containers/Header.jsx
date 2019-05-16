@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import rgba from 'polished/lib/color/rgba';
 import { appColor, headerHeight } from 'modules/theme';
-
-import { logOut } from 'actions/index';
-
 import { Container, utils } from 'styled-minimal';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
+import { userLogout } from '../actions/user';
 
 const { responsive, spacer } = utils;
 
@@ -76,7 +74,7 @@ export default class Header extends React.PureComponent {
   handleClickLogout = () => {
     const { dispatch } = this.props;
 
-    dispatch(logOut());
+    dispatch(userLogout());
   };
 
   render() {

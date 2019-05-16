@@ -17,6 +17,10 @@ Object {
     "alerts": Array [],
     "isAuthenticated": true,
   },
+  "file": Object {
+    "data": Array [],
+    "status": "idle",
+  },
   "user": Object {
     "data": Object {},
     "isAuthenticated": true,

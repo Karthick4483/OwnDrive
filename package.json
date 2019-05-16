@@ -33,6 +33,7 @@
   },
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.2",
     "classlist-polyfill": "^1.2.0",
@@ -93,6 +94,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.1",
+    "redux-saga-requests": "^0.24.1",
     "rxjs": "6.2.0",
     "rxjs-compat": "^6.0.0-rc.0",
     "sass-mediaqueries": "^1.6.1",

@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const uploader = require('express-fileuploader');
+const path = require('path');
 const fileSchema = require('./file.controller');
 const User = require('../models/user.model');
 const File = require('../models/file.model');
@@ -17,7 +18,7 @@ const userSchema = Joi.object({
   isVerified: Joi.boolean(),
 });
 
-module.exports = { userSchema, uploadFile, getUser, getUserFiles };
+module.exports = { userSchema, uploadFile, getUser, getUserFiles, deleteUserFiles };
 
 uploader.use(
   new uploader.LocalStrategy({
@@ -50,7 +51,18 @@ function getUser(req, res, next) {
 }
 
 function getUserFiles(req, res, next) {
-  File.find({ _id: req.user.session.id }, (error, collection) => {
+  File.find({ userId: req.session.user.id, isDeleted: false }, (error, collection) => {
     res.send(JSON.stringify(collection));
+  });
+}
+
+function deleteUserFiles(req, res, next) {
+  File.updateOne({ _id: req.body.id }, { $set: { isDeleted: true } }, (error, collection) => {
+    File.find({ _id: req.body.id }, (error, collection) => {
+      const fs = require('fs');
+      const filePath = path.join(__dirname, `../../uploads/${collection[0].name}`);
+      fs.unlinkSync(filePath);
+      res.send('');
+    });
   });
 }

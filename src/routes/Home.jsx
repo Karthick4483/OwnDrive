@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import config from 'config';
-import { login } from 'actions/index';
 
 import { Button, Container, Text, utils } from 'styled-minimal';
 import Background from 'components/Background';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
+import { userLogin } from '../actions/user';
 
 const { spacer } = utils;
 
@@ -56,7 +56,7 @@ export class Home extends React.PureComponent {
   handleClickLogin = () => {
     const { dispatch } = this.props;
 
-    dispatch(login());
+    dispatch(userLogin());
   };
 
   render() {

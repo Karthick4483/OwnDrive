@@ -313,7 +313,7 @@ module.exports = webpackEnv => {
           // Default number of concurrent runs: os.cpus().length - 1
           parallel: true,
           // Enable file caching
-          cache: true,
+          // cache: true,
           sourceMap: shouldUseSourceMap,
         }),
         new OptimizeCSSAssetsPlugin({

@@ -1,11 +1,11 @@
-import { login, logOut } from 'actions/user';
+import { userLogin, userLogout } from 'actions/user';
 
 describe('App', () => {
   it('login should return an action', () => {
-    expect(login()).toMatchSnapshot();
+    expect(userLogin()).toMatchSnapshot();
   });
 
   it('logOut should return an action', () => {
-    expect(logOut()).toMatchSnapshot();
+    expect(userLogout()).toMatchSnapshot();
   });
 });

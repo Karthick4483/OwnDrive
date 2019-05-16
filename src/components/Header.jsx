@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import rgba from 'polished/lib/color/rgba';
 import { appColor, headerHeight } from 'modules/theme';
 
-import { logOut } from 'actions';
-
 import { Container, utils } from 'styled-minimal';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
 import Dropzone from 'react-dropzone';
+import { userLogout, uploadUserFiles } from '../actions/user';
 
 const { responsive, spacer } = utils;
 
@@ -70,18 +69,22 @@ export default class Header extends React.PureComponent {
 
   handleClickLogout = () => {
     const { dispatch } = this.props;
-    dispatch(logOut());
+    dispatch(userLogout());
   };
 
   onUploadStart(files) {
     const file = files[0];
     const formData = new FormData();
+    const { dispatch } = this.props;
+
     formData.append('file', file);
 
-    fetch('/api/user/upload/image', {
-      method: 'POST',
-      body: formData,
-    });
+    dispatch(uploadUserFiles(formData));
+
+    // fetch('/api/user/upload/image', {
+    //   method: 'POST',
+    //   body: formData,
+    // });
   }
 
   render() {
