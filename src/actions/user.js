@@ -10,13 +10,17 @@ import { ActionTypes } from 'constants/index';
 export const {
   userLogin,
   userLogout,
-  getUserFiles,
-  deleteUserFiles,
-  uploadUserFiles,
+  getFiles,
+  getTrashFiles,
+  deleteFiles,
+  uploadFiles,
+  trashFiles,
 } = createActions({
   [ActionTypes.USER_LOGIN]: () => ({}),
   [ActionTypes.USER_LOGOUT]: () => ({}),
-  [ActionTypes.GET_USER_FILES]: () => ({}),
-  [ActionTypes.DELETE_USER_FILES]: id => ({ id }),
-  [ActionTypes.UPLOAD_USER_FILES]: formData => ({ formData }),
+  [ActionTypes.GET_FILES]: () => ({}),
+  [ActionTypes.GET_TRASH_FILES]: () => ({}),
+  [ActionTypes.DELETE_FILES]: id => ({ id }),
+  [ActionTypes.TRASH_FILES]: id => ({ id }),
+  [ActionTypes.UPLOAD_FILES]: formData => ({ formData }),
 });

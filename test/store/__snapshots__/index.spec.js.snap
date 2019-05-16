@@ -21,6 +21,10 @@ Object {
     "data": Array [],
     "status": "idle",
   },
+  "trash": Object {
+    "data": Array [],
+    "status": "idle",
+  },
   "user": Object {
     "data": Object {},
     "isAuthenticated": true,

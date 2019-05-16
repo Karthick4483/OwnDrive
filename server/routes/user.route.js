@@ -10,9 +10,10 @@ module.exports = router;
 router.use('/upload/image', mutilpart());
 router.post('/upload/image', userCtrl.uploadFile);
 router.get('/me', userCtrl.getUser);
-router.get('/files', userCtrl.getUserFiles);
-router.delete('/files', userCtrl.deleteUserFiles);
-
+router.get('/files', userCtrl.getFiles);
+router.get('/trash', userCtrl.getTrashFiles);
+router.delete('/files', userCtrl.deleteFiles);
+router.delete('/files/trash', userCtrl.trashFiles);
 // router.route('/').post(asyncHandler(insertUser));
 // router.route('/contacts').get(asyncHandler(getContacts));
 // router.route('/contacts/add').post(asyncHandler(addContact));

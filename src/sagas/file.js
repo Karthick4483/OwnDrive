@@ -8,17 +8,31 @@ import axios from 'axios';
  * @desc File
  */
 
-export function* getUserFiles() {
+export function* getFiles() {
   try {
     const response = yield call(request, '/api/user/files');
     yield put({
-      type: ActionTypes.GET_USER_FILES_SUCCESS,
+      type: ActionTypes.GET_FILES_SUCCESS,
       payload: { data: response },
     });
   } catch (err) {
-    /* istanbul ignore next */
     yield put({
-      type: ActionTypes.GET_USER_FILES_FAILURE,
+      type: ActionTypes.GET_FILES_FAILURE,
+      payload: err,
+    });
+  }
+}
+
+export function* getTrashFiles() {
+  try {
+    const response = yield call(request, '/api/user/trash');
+    yield put({
+      type: ActionTypes.GET_TRASH_FILES_SUCCESS,
+      payload: { data: response },
+    });
+  } catch (err) {
+    yield put({
+      type: ActionTypes.GET_TRASH_FILES_FAILURE,
       payload: err,
     });
   }
@@ -32,6 +46,14 @@ function deleteFile(params) {
   });
 }
 
+function trashFile(params) {
+  return axios.request({
+    method: 'delete',
+    url: '/api/user/files/trash',
+    data: params.payload,
+  });
+}
+
 function uploadFile(params) {
   return axios.request({
     method: 'post',
@@ -40,35 +62,51 @@ function uploadFile(params) {
   });
 }
 
-export function* deleteUserFiles(params) {
+export function* trashFiles(params) {
   try {
-    const response = yield call(deleteFile, params);
-    yield call(getUserFiles);
+    yield call(trashFile, params);
+    yield call(getTrashFiles);
 
     yield put({
-      type: ActionTypes.DELETE_USER_FILES_SUCCESS,
-      payload: { data: response },
+      type: ActionTypes.TRASH_FILES_SUCCESS,
     });
   } catch (err) {
     yield put({
-      type: ActionTypes.GET_USER_FILES_FAILURE,
+      type: ActionTypes.TRASH_FILES_FAILURE,
       payload: err,
     });
   }
 }
 
-export function* uploadUserFiles(params) {
+export function* deleteFiles(params) {
   try {
-    const response = yield call(uploadFile, params);
-    yield call(getUserFiles);
+    yield call(deleteFile, params);
+    yield call(getFiles);
+    yield call(getTrashFiles);
 
     yield put({
-      type: ActionTypes.DELETE_USER_FILES_SUCCESS,
+      type: ActionTypes.DELETE_FILES_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: ActionTypes.DELETE_FILES_FAILURE,
+      payload: err,
+    });
+  }
+}
+
+export function* uploadFiles(params) {
+  try {
+    const response = yield call(uploadFile, params);
+    yield call(getFiles);
+
+    yield put({
+      type: ActionTypes.DELETE_FILES_SUCCESS,
       payload: { data: response },
     });
   } catch (err) {
     yield put({
-      type: ActionTypes.GET_USER_FILES_FAILURE,
+      type: ActionTypes.GET_FILES_FAILURE,
       payload: err,
     });
   }
@@ -76,8 +114,10 @@ export function* uploadUserFiles(params) {
 
 export default function* root() {
   yield all([
-    takeLatest(ActionTypes.GET_USER_FILES, getUserFiles),
-    takeLatest(ActionTypes.DELETE_USER_FILES, deleteUserFiles),
-    takeLatest(ActionTypes.UPLOAD_USER_FILES, uploadUserFiles),
+    takeLatest(ActionTypes.GET_FILES, getFiles),
+    takeLatest(ActionTypes.GET_TRASH_FILES, getTrashFiles),
+    takeLatest(ActionTypes.DELETE_FILES, deleteFiles),
+    takeLatest(ActionTypes.TRASH_FILES, trashFiles),
+    takeLatest(ActionTypes.UPLOAD_FILES, uploadFiles),
   ]);
 }

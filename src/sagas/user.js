@@ -7,7 +7,7 @@ import { all, delay, call, put, takeLatest } from 'redux-saga/effects';
 import { request } from 'modules/client';
 
 import { ActionTypes } from 'constants/index';
-import { getUserFiles } from './file';
+import { getFiles, getTrashFiles } from './file';
 
 /**
  * Login
@@ -54,7 +54,8 @@ export function* initUser() {
       type: ActionTypes.INIT_USER_SUCCESS,
       payload: { data: response },
     });
-    yield call(getUserFiles);
+    yield call(getFiles);
+    yield call(getTrashFiles);
   } catch (err) {
     /* istanbul ignore next */
     yield put({

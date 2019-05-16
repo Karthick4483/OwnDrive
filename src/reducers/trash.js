@@ -9,18 +9,18 @@ export const initState = {
 };
 
 export default {
-  file: handleActions(
+  trash: handleActions(
     {
-      [ActionTypes.GET_FILES]: state =>
+      [ActionTypes.GET_TRASH_FILES]: state =>
         immutable(state, {
           status: { $set: STATUS.RUNNING },
         }),
-      [ActionTypes.GET_FILES_SUCCESS]: (state, response) =>
+      [ActionTypes.GET_TRASH_FILES_SUCCESS]: (state, response) =>
         immutable(state, {
           status: { $set: STATUS.READY },
           data: { $set: JSON.parse(response.payload.data) },
         }),
-      [ActionTypes.GET_FILES_FAILURE]: state =>
+      [ActionTypes.GET_TRASH_FILES_FAILURE]: state =>
         immutable(state, {
           status: { $set: STATUS.IDLE },
         }),

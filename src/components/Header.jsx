@@ -8,7 +8,7 @@ import { Container, utils } from 'styled-minimal';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
 import Dropzone from 'react-dropzone';
-import { userLogout, uploadUserFiles } from '../actions/user';
+import { userLogout, uploadFiles } from '../actions/user';
 
 const { responsive, spacer } = utils;
 
@@ -79,7 +79,7 @@ export default class Header extends React.PureComponent {
 
     formData.append('file', file);
 
-    dispatch(uploadUserFiles(formData));
+    dispatch(uploadFiles(formData));
 
     // fetch('/api/user/upload/image', {
     //   method: 'POST',
