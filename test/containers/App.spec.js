@@ -35,7 +35,6 @@ describe('App', () => {
         isAuthenticated: true,
       },
     });
-
-    expect(wrapper.find('Header')).toExist();
+    expect(wrapper.find('Connect(Header)')).toExist();
   });
 });

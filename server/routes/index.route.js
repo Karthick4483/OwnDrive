@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./user.route');
 const authRoutes = require('./auth.route');
+const fileRoutes = require('./file.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
 const resCodes = require('../config/rescodes');
@@ -15,5 +16,6 @@ const validateUser = (req, res, next) => {
 
 router.use('/auth', authRoutes);
 router.use('/user', validateUser, userRoutes);
+router.use('/file', validateUser, fileRoutes);
 
 module.exports = router;

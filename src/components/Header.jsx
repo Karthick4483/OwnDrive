@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import rgba from 'polished/lib/color/rgba';
 import { appColor, headerHeight } from 'modules/theme';
-
+import { connect } from 'react-redux';
 import { Container, utils } from 'styled-minimal';
 import Icon from 'components/Icon';
 import Logo from 'components/Logo';
@@ -62,9 +62,10 @@ const Logout = styled.button`
   }
 `;
 
-export default class Header extends React.PureComponent {
+export class Header extends React.PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    file: PropTypes.object.isRequired,
   };
 
   handleClickLogout = () => {
@@ -73,11 +74,11 @@ export default class Header extends React.PureComponent {
   };
 
   onUploadStart(files) {
-    const file = files[0];
     const formData = new FormData();
-    const { dispatch } = this.props;
+    const { dispatch, file } = this.props;
 
-    formData.append('file', file);
+    formData.append('folderPath', file.folderPath);
+    formData.append('file', files[0]);
 
     dispatch(uploadFiles(formData));
 
@@ -116,3 +117,11 @@ export default class Header extends React.PureComponent {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    file: state.file,
+  };
+}
+
+export default connect(mapStateToProps)(Header);

@@ -70,6 +70,7 @@ export class App extends React.Component {
 
   render() {
     const { dispatch, user } = this.props;
+
     return (
       <Router history={history}>
         <ThemeProvider theme={theme}>

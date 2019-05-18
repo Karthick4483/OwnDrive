@@ -19,6 +19,7 @@ Object {
   },
   "file": Object {
     "data": Array [],
+    "folderPath": "/",
     "status": "idle",
   },
   "trash": Object {

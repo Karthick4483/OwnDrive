@@ -1,9 +1,11 @@
 import React from 'react';
-
 import Header from 'components/Header';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 
 const mockDispatch = jest.fn();
-
+const mockStore = configureMockStore();
+const store = mockStore({});
 function setup() {
   const props = {
     app: {},
@@ -13,7 +15,11 @@ function setup() {
     },
   };
 
-  return mount(<Header suppressClassNameWarning {...props} />);
+  return mount(
+    <Provider store={store}>
+      <Header suppressClassNameWarning {...props} />
+    </Provider>,
+  );
 }
 
 describe('Header', () => {

@@ -6,6 +6,7 @@ import { STATUS, ActionTypes } from 'constants/index';
 export const initState = {
   status: STATUS.IDLE,
   data: [],
+  folderPath: '/',
 };
 
 export default {
@@ -18,7 +19,8 @@ export default {
       [ActionTypes.GET_FILES_SUCCESS]: (state, response) =>
         immutable(state, {
           status: { $set: STATUS.READY },
-          data: { $set: JSON.parse(response.payload.data) },
+          data: { $set: response.payload.data.collection },
+          folderPath: { $set: response.payload.data.folderPath },
         }),
       [ActionTypes.GET_FILES_FAILURE]: state =>
         immutable(state, {
