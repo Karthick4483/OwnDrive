@@ -6,6 +6,7 @@ const FileSchema = new mongoose.Schema({
   type: { type: String, required: true },
   path: { type: String, required: true },
   folderPath: { type: String, required: true, default: '/' },
+  isTrashed: { type: Boolean, required: false, default: false },
   isDeleted: { type: Boolean, required: false, default: false },
   createdAt: { type: Date, required: true, default: Date.now },
 });

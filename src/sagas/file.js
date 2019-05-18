@@ -8,15 +8,15 @@ import axios from 'axios';
  * @desc File
  */
 
-function deleteFile(params) {
+function deleteFileReq(params) {
   return axios.delete('/api/file/delete', { data: params.payload });
 }
 
-function trashFile(params) {
+function trashFileReq(params) {
   return axios.delete('/api/file/trash', { data: params.payload });
 }
 
-function restoreFile(params) {
+function restoreFileReq(params) {
   return axios.post('/api/file/restore', params.payload);
 }
 
@@ -74,7 +74,7 @@ export function* getTrashFiles() {
 
 export function* restoreFiles(params) {
   try {
-    yield call(restoreFile, params);
+    yield call(restoreFileReq, params);
     yield call(getTrashFiles);
     yield call(getFiles);
 
@@ -91,7 +91,7 @@ export function* restoreFiles(params) {
 
 export function* trashFiles(params) {
   try {
-    yield call(trashFile, params);
+    yield call(trashFileReq, params);
     yield call(getTrashFiles);
     yield call(getFiles);
 
@@ -124,7 +124,7 @@ export function* moveFiles(params) {
 
 export function* deleteFiles(params) {
   try {
-    yield call(deleteFile, params);
+    yield call(deleteFileReq, params);
     yield call(getFiles);
     yield call(getTrashFiles);
 

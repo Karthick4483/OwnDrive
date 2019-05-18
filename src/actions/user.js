@@ -23,10 +23,10 @@ export const {
   [ActionTypes.USER_LOGOUT]: () => ({}),
   [ActionTypes.GET_FILES]: params => params,
   [ActionTypes.GET_TRASH_FILES]: () => ({}),
-  [ActionTypes.DELETE_FILES]: id => ({ id }),
+  [ActionTypes.DELETE_FILES]: (id, path) => ({ id, path }),
   [ActionTypes.MOVE_FILES]: data => data,
-  [ActionTypes.TRASH_FILES]: id => ({ id }),
-  [ActionTypes.RESTORE_FILES]: id => ({ id }),
+  [ActionTypes.TRASH_FILES]: (id, path) => ({ id, path }),
+  [ActionTypes.RESTORE_FILES]: (id, path) => ({ id, path }),
   [ActionTypes.UPLOAD_FILES]: formData => ({ formData }),
   [ActionTypes.CREATE_FOLDER]: data => data,
 });

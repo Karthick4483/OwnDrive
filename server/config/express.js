@@ -13,10 +13,12 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
+const basicAuth = require('basic-auth-connect');
 const config = require('./config');
 const views = require('../routes/view.route');
 const routes = require('../routes/index.route');
 const swaggerDocument = require('./swagger.json');
+const queue = require('./kue');
 
 const app = express();
 const distDir = '../../build/';
@@ -33,10 +35,6 @@ app.use(compress());
 app.use(expressValidator());
 app.use(flash());
 app.engine('html', require('ejs').renderFile);
-
-// app.use(methodOverride());
-// app.use(helmet());
-// app.use(cors());
 
 app.use(
   session({
