@@ -29,7 +29,9 @@
     "deploy": "node tools deploy",
     "publish": "node tools publish",
     "bundlesize": "bundlesize",
-    "precommit": "node tools upstream && lint-staged"
+    "precommit": "node tools upstream && lint-staged",
+    "migrate:create": "func() { migrate-mongo create \"$1\"; }; func",
+    "migrate": "func() { migrate-mongo \"$1\"; }; func"
   },
   "private": true,
   "dependencies": {
@@ -71,6 +73,7 @@
     "kue": "^0.11.6",
     "lodash": "^4.17.11",
     "method-override": "^2.3.10",
+    "migrate-mongo": "^5.0.1",
     "mobile-detect": "^1.4.3",
     "modernizr": "^3.7.0",
     "mongoose": "^5.1.0",

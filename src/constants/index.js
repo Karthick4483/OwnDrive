@@ -20,9 +20,17 @@ export const ActionTypes = keyMirror({
   GET_FILES_SUCCESS: undefined,
   GET_FILES_FAILURE: undefined,
 
+  GET_PHOTOS: undefined,
+  GET_PHOTOS_SUCCESS: undefined,
+  GET_PHOTOS_FAILURE: undefined,
+
   GET_TRASH_FILES: undefined,
   GET_TRASH_FILES_SUCCESS: undefined,
   GET_TRASH_FILES_FAILURE: undefined,
+
+  GET_FINDER_FILES: undefined,
+  GET_FINDER_FILES_SUCCESS: undefined,
+  GET_FINDER_FILES_FAILURE: undefined,
 
   TRASH_FILES: undefined,
   TRASH_FILES_FAILURE: undefined,
@@ -37,8 +45,8 @@ export const ActionTypes = keyMirror({
   CREATE_FOLDER_FAILURE: undefined,
 
   UPLOAD_FILES: undefined,
-  UPLOAD_USER_FILES_SUCCESS: undefined,
-  UPLOAD_USER_FILES_FAILURE: undefined,
+  UPLOAD_FILES_SUCCESS: undefined,
+  UPLOAD_FILES_FAILURE: undefined,
 
   DELETE_FILES: undefined,
   DELETE_FILES_SUCCESS: undefined,
@@ -47,6 +55,46 @@ export const ActionTypes = keyMirror({
   MOVE_FILES: undefined,
   MOVE_FILES_FAILURE: undefined,
   MOVE_FILES_SUCCESS: undefined,
+
+  GET_FILE_COMMENTS: undefined,
+  GET_FILE_COMMENTS_SUCCESS: undefined,
+  GET_FILE_COMMENTS_FAILURE: undefined,
+
+  DELETE_FILE_COMMENT: undefined,
+  DELETE_FILE_COMMENT_SUCCESS: undefined,
+  DELETE_FILE_COMMENT_FAILURE: undefined,
+
+  ADD_FILE_COMMENT: undefined,
+  ADD_FILE_COMMENT_SUCCESS: undefined,
+  ADD_FILE_COMMENT_FAILURE: undefined,
+
+  GET_ALBUMS: undefined,
+  GET_ALBUMS_SUCCESS: undefined,
+  GET_ALBUMS_FAILURE: undefined,
+
+  DELETE_ALBUM: undefined,
+  DELETE_ALBUM_SUCCESS: undefined,
+  DELETE_ALBUM_FAILURE: undefined,
+
+  TRASH_ALBUM: undefined,
+  TRASH_ALBUM_SUCCESS: undefined,
+  TRASH_ALBUM_FAILURE: undefined,
+
+  CREATE_ALBUM: undefined,
+  CREATE_ALBUM_SUCCESS: undefined,
+  CREATE_ALBUM_FAILURE: undefined,
+
+  ADD_FILES_TO_ALBUM: undefined,
+  ADD_FILES_TO_ALBUM_SUCCESS: undefined,
+  ADD_FILES_TO_ALBUM_FAILURE: undefined,
+
+  REMOVE_FILES_FROM_ALBUM: undefined,
+  REMOVE_FILES_FROM_ALBUM_SUCCESS: undefined,
+  REMOVE_FILES_FROM_ALBUM_FAILURE: undefined,
+
+  GET_ALBUM_FILES: undefined,
+  GET_ALBUM_FILES_SUCCESS: undefined,
+  GET_ALBUM_FILES_FAILURE: undefined,
 
   EXCEPTION: undefined,
   USER_LOGIN: undefined,

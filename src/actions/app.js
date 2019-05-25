@@ -9,9 +9,8 @@ import { createActions } from 'redux-actions';
 import { ActionTypes } from 'constants/index';
 
 export { goBack, go, push, replace } from 'modules/history';
-export const { hideAlert, showAlert, switchMenu, initUser } = createActions({
+export const { hideAlert, showAlert, initUser } = createActions({
   [ActionTypes.INIT_USER]: () => ({}),
-  [ActionTypes.SWITCH_MENU]: (query: string) => ({ query }),
   [ActionTypes.HIDE_ALERT]: (id: string) => ({ id }),
   [ActionTypes.SHOW_ALERT]: (message: string, options: Object) => {
     const timeout = options.variant === 'danger' ? 0 : 5;

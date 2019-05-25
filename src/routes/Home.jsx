@@ -1,56 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-
-import config from 'config';
-
-import { Button, Container, Text, utils } from 'styled-minimal';
-import Background from 'components/Background';
-import Icon from 'components/Icon';
-import Logo from 'components/Logo';
 import { userLogin } from '../actions/user';
-
-const { spacer } = utils;
-
-const HomeContainer = styled(Container)`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-`;
-
-const Header = styled.div`
-  margin-bottom: ${spacer(3)};
-  text-align: center;
-
-  svg {
-    width: 20rem;
-  }
-`;
-
-const Heading = styled.h1`
-  color: #fff;
-  font-size: 3.5rem;
-  line-height: 1.4;
-  margin-bottom: ${spacer(3)};
-  margin-top: 0;
-  text-align: left;
-
-  /* stylelint-disable */
-  ${utils.responsive({
-    lg: `
-      font-size: 4rem;
-    `,
-  })};
-  /* stylelint-enable */
-`;
 
 export class Home extends React.PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
   };
 
   handleClickLogin = () => {
@@ -60,28 +15,7 @@ export class Home extends React.PureComponent {
   };
 
   render() {
-    const { user } = this.props;
-
-    return (
-      <Background key="Home" data-testid="HomeWrapper">
-        <HomeContainer verticalPadding>
-          <Header>
-            <Logo />
-          </Header>
-          <Heading>{config.description}</Heading>
-          <Button
-            animate={user.status === 'running'}
-            onClick={this.handleClickLogin}
-            size="xl"
-            textTransform="uppercase"
-            data-testid="Login"
-          >
-            <Icon name="sign-in" />
-            <Text ml={2}>Start</Text>
-          </Button>
-        </HomeContainer>
-      </Background>
-    );
+    return 'Login';
   }
 }
 

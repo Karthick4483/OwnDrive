@@ -7,7 +7,7 @@ import { all, delay, call, put, takeLatest } from 'redux-saga/effects';
 import { request } from 'modules/client';
 
 import { ActionTypes } from 'constants/index';
-import { getFiles, getTrashFiles } from './file';
+import { getFiles, getPhotos } from './file';
 
 /**
  * Login
@@ -55,7 +55,8 @@ export function* initUser() {
       payload: { data: response },
     });
     yield call(getFiles);
-    yield call(getTrashFiles);
+    // yield call(getTrashFiles);
+    yield call(getPhotos);
   } catch (err) {
     /* istanbul ignore next */
     yield put({

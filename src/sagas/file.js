@@ -36,13 +36,14 @@ function moveFilesReq(params) {
   });
 }
 
-function getFilesReq(params) {
-  return axios.get('/api/file/list/all', { params });
+export function getFilesReq(params) {
+  return axios.get(`/api/file/list/${params.type}`, { params });
 }
 
 export function* getFiles(params) {
   const file = yield select(state => state.file);
   const payload = params ? params.payload : { folderPath: file.folderPath };
+  payload.type = 'all';
   try {
     const response = yield call(getFilesReq, payload);
     yield put({
@@ -52,6 +53,23 @@ export function* getFiles(params) {
   } catch (err) {
     yield put({
       type: ActionTypes.GET_FILES_FAILURE,
+      payload: err,
+    });
+  }
+}
+
+export function* getPhotos(params) {
+  const payload = params && params.payload ? params.payload : {};
+  payload.type = 'photos';
+  try {
+    const response = yield call(getFilesReq, payload);
+    yield put({
+      type: ActionTypes.GET_PHOTOS_SUCCESS,
+      payload: { data: response.data },
+    });
+  } catch (err) {
+    yield put({
+      type: ActionTypes.GET_PHOTOS_FAILURE,
       payload: err,
     });
   }
@@ -145,12 +163,12 @@ export function* uploadFiles(params) {
     yield call(getFiles);
 
     yield put({
-      type: ActionTypes.DELETE_FILES_SUCCESS,
+      type: ActionTypes.UPLOAD_FILES_SUCCESS,
       payload: { data: response },
     });
   } catch (err) {
     yield put({
-      type: ActionTypes.DELETE_FILES_FAILURE,
+      type: ActionTypes.UPLOAD_FILES_FAILURE,
       payload: err,
     });
   }
@@ -176,6 +194,7 @@ export function* createFolder(params) {
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_FILES, getFiles),
+    takeLatest(ActionTypes.GET_PHOTOS, getPhotos),
     takeLatest(ActionTypes.GET_TRASH_FILES, getTrashFiles),
     takeLatest(ActionTypes.DELETE_FILES, deleteFiles),
     takeLatest(ActionTypes.MOVE_FILES, moveFiles),

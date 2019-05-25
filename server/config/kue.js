@@ -21,14 +21,13 @@ queue.on('error', err => {
 });
 
 function deleteFiles(files, callback) {
-  if (files.length == 0) callback();
+  if (files.length == 0) callback(false);
   else {
     let filePath = files.pop();
     filePath = path.join(__dirname, `../../uploads/${filePath}`);
 
     fs.unlink(filePath, err => {
-      console.log(err);
-      if (err) callback(err);
+      if (err) callback(true);
       else {
         deleteFiles(files, callback);
       }
@@ -40,11 +39,15 @@ queue.process('deleteFiles', (job, done) => {
   File.find(
     { userId: job.data.userId, isDeleted: true, type: { $ne: 'folder' } },
     (error, collection) => {
-      const paths = _.map(collection, item => item.name);
-      deleteFiles(paths, response => {
-        File.deleteMany({ userId: job.data.userId, isDeleted: true }, (err, collection) => {
+      const paths = _.map(collection, item => item.fileName);
+      deleteFiles(paths, error => {
+        if (error == false) {
+          File.deleteMany({ userId: job.data.userId, isDeleted: true }, (err, collection) => {
+            done();
+          });
+        } else {
           done();
-        });
+        }
       });
     },
   );

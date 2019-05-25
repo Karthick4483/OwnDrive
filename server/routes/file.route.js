@@ -12,6 +12,8 @@ router.post('/move', fileCtrl.moveFiles);
 router.post('/restore', fileCtrl.restoreFiles);
 
 router.get('/list/all', fileCtrl.getFiles);
+router.get('/list/photos', fileCtrl.getPhotos);
+router.get('/list/photo', fileCtrl.getPhoto);
 router.get('/list/trash', fileCtrl.getTrashFiles);
 
 router.delete('/delete', fileCtrl.deleteFiles);

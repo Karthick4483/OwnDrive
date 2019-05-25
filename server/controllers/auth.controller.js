@@ -7,6 +7,7 @@ const config = require('../config/config');
 const User = require('../models/user.model');
 const SignupToken = require('../models/signup-token.model');
 const userCtrl = require('../controllers/user.controller');
+const fileCtrl = require('../controllers/file.controller');
 
 mongoose.Promise = global.Promise;
 
@@ -74,6 +75,7 @@ function login(req, res) {
       res.redirect('/verify');
     } else if (user && user.isVerified) {
       req.session.user = { id: user._id, email: user.email, isVerified: true };
+      fileCtrl.createDefaultDrive(user._id);
       res.redirect('/dashboard');
     }
   });

@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
-const Contact = require("../models/contact.model");
-const {ObjectId} = require('mongodb'); // or ObjectID 
+const bcrypt = require('bcrypt');
+const Joi = require('joi');
+const Contact = require('../models/contact.model');
+const { ObjectId } = require('mongodb'); // or ObjectID
 
 const contactSchema = Joi.object({
   userId: Joi.string().required(),
@@ -15,7 +15,7 @@ const contactSchema = Joi.object({
 module.exports = {
   insert,
   get,
-  del
+  del,
 };
 
 async function insert(contact) {
@@ -24,10 +24,10 @@ async function insert(contact) {
 }
 
 async function get() {
-  return await Contact.find({})
+  return await Contact.find({});
 }
 
 async function del(id) {
-  return await Contact.findOneAndDelete({_id:ObjectId(id)})
+  return await Contact.findOneAndDelete({ _id: ObjectId(id) });
   // return await Contact.findOneAndDelete({id:ObjectId(id)})
 }

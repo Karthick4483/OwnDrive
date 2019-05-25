@@ -73,4 +73,9 @@ const server = app.use((err, req, res, next) => {
   next(err);
 });
 
+// process.on('uncaughtException', error => {
+//   console.log(error.stack);
+//   res.se
+// });
+
 module.exports = app;

@@ -13,11 +13,34 @@ Object {
     "rehydrated": true,
     "version": -1,
   },
+  "album": Object {
+    "data": Array [],
+    "status": "idle",
+  },
+  "albumFiles": Object {
+    "data": Array [],
+    "status": "idle",
+  },
   "app": Object {
     "alerts": Array [],
     "isAuthenticated": true,
   },
+  "comment": Object {
+    "data": Array [],
+    "folderPath": "/",
+    "status": "idle",
+  },
   "file": Object {
+    "data": Array [],
+    "folderPath": "/",
+    "status": "idle",
+  },
+  "finder": Object {
+    "data": Array [],
+    "folderPath": "/",
+    "status": "idle",
+  },
+  "photo": Object {
     "data": Array [],
     "folderPath": "/",
     "status": "idle",
