@@ -39,6 +39,8 @@ const config = {
   mongo: {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT,
+    userName: envVars.MONGO_USERNAME,
+    password: envVars.MONGO_PASSWORD,
   },
   smtp: {
     host: envVars.SMPT_HOST,

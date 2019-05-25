@@ -71,7 +71,7 @@ function login(req, res) {
       req.flash('message', 'invalid password');
       res.redirect('/login');
     } else if (user && !user.isVerified) {
-      req.session.user = { id: user._id, email: user.email, isVerified: false };
+      // req.session.user = { id: user._id, email: user.email, isVerified: false };
       res.redirect('/verify');
     } else if (user && user.isVerified) {
       req.session.user = { id: user._id, email: user.email, isVerified: true };
@@ -150,7 +150,7 @@ function confirmationToken(req, res, next) {
     }
     User.findOne({ _id: token._userId }, (err, user) => {
       SignupToken.remove({ token: req.params.token }, tokenError => {
-        req.session.user = { email: user.email, id: user._id, isVerified: false };
+        // req.session.user = { email: user.email, id: user._id, isVerified: false };
 
         if (tokenError) {
           req.flash('message', 'Token expired or not found');
@@ -159,13 +159,13 @@ function confirmationToken(req, res, next) {
 
         if (user) {
           user.isVerified = true;
-
           user.save(err => {
             if (err) {
               return res.status(500).send({ msg: err.message });
             }
-            req.session.user = { email: user.email, id: user._id, isVerified: true };
+            // req.session.user = { email: user.email, id: user._id, isVerified: true };
             req.flash('message', 'User has been verfied already, login now');
+            // fileCtrl.createDefaultDrive(user._id);
             return res.redirect('/notify');
           });
         }

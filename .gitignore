@@ -45,6 +45,7 @@ Thumbs.db
 
 # Env file
 *.env
+*.env_prod
 
 
 

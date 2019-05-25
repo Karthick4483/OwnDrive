@@ -7,8 +7,6 @@ import Helmet from 'react-helmet';
 import styled, { css, ThemeProvider } from 'styled-components';
 import treeChanges from 'tree-changes';
 import SystemAlerts from 'containers/SystemAlerts';
-import '@blueprintjs/core/lib/css/blueprint.css';
-import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import history from 'modules/history';
 import theme, { headerHeight } from 'modules/theme';
 import { utils } from 'styled-minimal';

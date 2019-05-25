@@ -12,6 +12,9 @@ import App from 'containers/App';
 import Loader from 'components/Loader';
 import Reload from 'components/Reload';
 
+import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+
 export const app = {
   cssRetries: 0,
   fetchRetries: 0,
