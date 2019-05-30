@@ -38,7 +38,7 @@ export class MediaView extends React.PureComponent {
           {file && (
             <div
               style={{
-                backgroundImage: `url(/api/file/list/photo?fileName=${file.fileName})`,
+                backgroundImage: `url(/api/file/list/photo?fileId=${file._id})`,
                 backgroundSize: '100%',
                 width: 600,
                 height: 600,

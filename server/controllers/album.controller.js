@@ -16,7 +16,7 @@ function getAlbums(req, res, next) {
 }
 //
 
-function getAlbumsFiles(req, res, next) {
+function getAlbumFiles(req, res, next) {
   Album.aggregate(
     [
       { $match: { _id: ObjectId(req.query.id), userId: ObjectId(req.session.user.id) } },
@@ -32,6 +32,7 @@ function getAlbumsFiles(req, res, next) {
         $project: {
           _id: 1,
           'albumFiles.name': 1,
+          'albumFiles.fileName': 1,
           'albumFiles.path': 1,
           'albumFiles.folderPath': 1,
           'albumFiles.userId': 1,
@@ -120,5 +121,5 @@ module.exports = {
   deleteAlbum,
   addAlbumFiles,
   removeAlbumFiles,
-  getAlbumsFiles,
+  getAlbumFiles,
 };

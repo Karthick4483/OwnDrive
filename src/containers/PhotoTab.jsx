@@ -39,7 +39,7 @@ export class PhotoTab extends React.PureComponent {
               {/* <div>{item.name}</div> */}
               <div
                 style={{
-                  backgroundImage: `url(/api/file/list/photo?fileName=${item.fileName})`,
+                  backgroundImage: `url(/api/file/list/photo?fileId=${item._id})`,
                   backgroundSize: '100%',
                   width: 300,
                   height: 300,

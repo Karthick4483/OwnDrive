@@ -56,9 +56,9 @@ function getFiles(req, res, next) {
 
 function getPhoto(req, res, next) {
   const userId = req.session.user.id;
-  const { fileName } = req.query;
+  const { fileId } = req.query;
 
-  File.find({ fileName, userId }, (error, collection) => {
+  File.find({ _id: ObjectId(fileId), userId }, (error, collection) => {
     const file = collection && collection[0];
     if (file) {
       filePath = path.join(__dirname, `../../uploads/${file.fileName}`);

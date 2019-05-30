@@ -14,4 +14,12 @@ const FileSchema = new mongoose.Schema({
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
+function onDeleteMany(next) {
+  console.log('delete');
+  console.log(this);
+  // next();
+}
+
+FileSchema.pre('deleteMany', onDeleteMany);
+
 module.exports = mongoose.model('File', FileSchema);

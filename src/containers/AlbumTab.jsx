@@ -59,8 +59,7 @@ export class AlbumTab extends React.PureComponent {
             >
               <div
                 style={{
-                  // backgroundImage: `url(/api/file/list/album?fileName=${item.fileName})`,
-                  background: '#dbdbdb',
+                  background: `url(/api/file/list/photo?fileId=${item.files[0]})`,
                   backgroundSize: '100%',
                   width: 300,
                   height: 300,
@@ -106,8 +105,7 @@ export class AlbumTab extends React.PureComponent {
             >
               <div
                 style={{
-                  // backgroundImage: `url(/api/file/list/album?fileName=${item.fileName})`,
-                  background: '#dbdbdb',
+                  background: `url(/api/file/list/photo?fileId=${item._id})`,
                   backgroundSize: '100%',
                   width: 300,
                   height: 300,
