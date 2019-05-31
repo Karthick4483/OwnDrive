@@ -62,11 +62,16 @@ function getPhoto(req, res, next) {
     const file = collection && collection[0];
     if (file) {
       filePath = path.join(__dirname, `../../uploads/${file.fileName}`);
-      const img = fs.readFileSync(filePath);
-      res.writeHead(200, { 'Content-Type': file.mimeType });
-      return res.end(img, 'binary');
+      try {
+        const img = fs.readFileSync(filePath);
+        res.writeHead(200, { 'Content-Type': file.mimeType });
+        return res.end(img, 'binary');
+      } catch (err) {
+        return res.send(404, err);
+      }
+    } else {
+      return res.send(404, 'File not found');
     }
-    return res.send(404, 'File not found');
   });
 }
 
@@ -95,47 +100,93 @@ function getTrashFiles(req, res, next) {
 }
 
 function trashFiles(req, res, next) {
-  File.findOneAndUpdate(
-    {
-      userId: ObjectId(req.session.user.id),
-      isTrashed: false,
-      $and: [{ _id: { $eq: ObjectId(req.body.id) }, type: { $ne: 'drive' } }],
-    },
-    { $set: { isTrashed: true } },
-    (error, collection) => {
+  const { id, path } = req.body;
+  const userId = req.session.user.id;
+
+  File.findOne({ _id: ObjectId(id) }, (error, collection) => {
+    if (error == null) {
+      const isFile = collection.type == 'file';
+      console.log(isFile);
+
+      const match = isFile ? { $eq: req.body.path } : { $regex: `^${req.body.path}` };
+
       File.updateMany(
         {
-          userId: ObjectId(req.session.user.id),
+          userId: ObjectId(userId),
           isTrashed: false,
           $and: [
             {
               type: { $ne: 'drive' },
-              path: { $regex: `^${req.body.path}` },
-              _id: { $ne: ObjectId(req.body.id) },
+              path: match,
             },
           ],
         },
         { $set: { isTrashed: true } },
         (error, collection) => {
-          res.send(JSON.stringify(collection));
+          const from = path;
+          const to = from.replace(`/${userId}/`, `/${userId}/.bin/`);
+          _moveFiles(from, to, id, req, res);
         },
       );
-    },
-  );
+    } else {
+      return res.send(JSON.stringify(error));
+    }
+  });
+
+  // File.findOneAndUpdate(
+  //   {
+  //     userId: ObjectId(userId),
+  //     isTrashed: false,
+  //     $and: [{ _id: { $eq: ObjectId(id) }, type: { $ne: 'drive' } }],
+  //   },
+  //   { $set: { isTrashed: true } },
+  //   (error, collection) => {
+
+  //   },
+  // );
 }
 
 function restoreFiles(req, res, next) {
-  File.updateMany(
-    {
-      userId: req.session.user.id,
-      isTrashed: true,
-      $and: [{ path: { $regex: `^${req.body.path}` }, type: { $ne: 'drive' } }],
-    },
-    { $set: { isTrashed: false } },
-    (error, collection) => {
-      res.send(JSON.stringify(collection));
-    },
-  );
+  const userId = req.session.user.id;
+  const { id, path } = req.body;
+  File.findOne({ _id: ObjectId(id) }, (error, collection) => {
+    if (error == null) {
+      const isFile = collection.type == 'file';
+      const match = isFile ? { $eq: req.body.path } : { $regex: `^${req.body.path}` };
+      File.updateMany(
+        {
+          userId: req.session.user.id,
+          isTrashed: true,
+          $and: [{ path: match, type: { $ne: 'drive' } }],
+        },
+        { $set: { isTrashed: false } },
+        (error, collection) => {
+          const from = path;
+          const to = from.replace('/.bin/', '/');
+          _moveFiles(from, to, id, req, res);
+        },
+      );
+    }
+  });
+
+  // File.find(
+  //   {
+  //     userId,
+  //     isTrashed: true,
+  //     $and: [{ path: { $regex: `^${req.body.path}` }, type: { $ne: 'drive' } }],
+  //   },
+  //   (error, collection) => {
+  //     _.each(collection, fileItem => {
+  //       const folderPath = fileItem.folderPath.replace(`/trash/${userId}/`, `/${userId}/`);
+  //       const path = fileItem.path.replace(`/trash/${userId}/`, `/${userId}/`);
+  //       fileItem.folderPath = cleanURL(folderPath);
+  //       fileItem.path = cleanURL(path);
+  //       fileItem.isTrashed = false;
+  //       fileItem.save();
+  //     });
+  //     res.send(JSON.stringify(collection));
+  //   },
+  // );
 }
 
 function getMetaFromPath(url) {
@@ -177,15 +228,14 @@ function getCopySuffix(collection, fromMeta, toMeta) {
 }
 
 function moveFiles(req, res, next) {
-  const { from, to, id } = req.body;
+  _moveFiles(req.body.from, req.body.to, req.body.id, req, res);
+}
+
+function _moveFiles(from, to, id, req, res) {
   const userId = req.session.user.id;
   const fromMeta = getMetaFromPath(from);
   const toMeta = getMetaFromPath(to);
   const invalidPath = "Invalid Path, can't move files to same folder, self folder or child folder";
-
-  if (toMeta.path == fromMeta.path) {
-    // return res.send(404, '');
-  }
 
   File.find({ userId, path: toMeta.folderPath }, (error, collection) => {
     if (collection && collection[0]) {
@@ -247,7 +297,7 @@ function moveFiles(req, res, next) {
             },
           );
         } else {
-          return res.send(404, invalidPath);
+          return res.send(404, 'Not found');
         }
       });
     });
@@ -259,7 +309,7 @@ function deleteFiles(req, res, next) {
     {
       isTrashed: true,
       isDeleted: false,
-      userId: req.session.user.id,
+      userId: ObjectId(req.session.user.id),
       $and: [{ path: { $regex: `^${req.body.path}` }, type: { $ne: 'drive' } }],
     },
     { $set: { isDeleted: true } },
@@ -287,7 +337,7 @@ function uploadFile(req, res, next) {
   const path = cleanURL(`${folderPath}/${name}`);
   const drive = findDrive(userId, folderPath).then(collection => {
     if (collection) {
-      File.find({ path, type: 'file' }, (error, collection) => {
+      File.find({ path, type: 'file', isDeleted: false, isTrashed: false }, (error, collection) => {
         if (collection.length == 0) {
           uploader.upload('local', req.files.file, (err, files) => {
             if (err) {
@@ -335,8 +385,24 @@ function findDrive(userId, folderPath) {
   return File.findOne({ userId: ObjectId(userId), type: 'drive', name: drive }).exec();
 }
 
+function createTrashFolder(userId) {
+  File.findOne({ userId: ObjectId(userId), name: '.bin' }, (error, collection) => {
+    if (collection == null || collection.length == 0) {
+      const file = {
+        name: '.bin',
+        displayName: '.bin',
+        type: 'folder',
+        path: `/${userId}/.bin/`,
+        folderPath: `/${userId}/`,
+        userId,
+      };
+      new File(file).save();
+    }
+  });
+}
+
 function createDefaultDrive(userId) {
-  File.findOne({ _id: userId, type: 'drive' }, (error, collection) => {
+  File.findOne({ userId: ObjectId(userId), type: 'drive' }, (error, collection) => {
     if (collection == null || collection.length == 0) {
       const file = {
         name: userId,
@@ -346,7 +412,13 @@ function createDefaultDrive(userId) {
         folderPath: '/',
         userId,
       };
-      new File(file).save();
+      new File(file).save(error => {
+        if (error == null) {
+          createTrashFolder();
+        }
+      });
+    } else {
+      createTrashFolder(userId);
     }
   });
 }
