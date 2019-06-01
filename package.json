@@ -5,7 +5,7 @@
   "description": "OwnDrive",
   "title": "test",
   "scripts": {
-    "serve": "forever start -c nodemon server",
+    "serve": "forever -c nodemon server",
     "start": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"nodemon --signal SIGTERM --delay 2000ms server\"",
     "build:watch": "nodemon tools/build",
     "build": "node tools/build",
